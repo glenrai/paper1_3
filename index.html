@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Paper 1 in Practice: an online workbook for IB DP English A Language and Literature Paper 1 guided analysis.">
+<title>Paper 1 in Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Caveat:wght@600&display=swap">
+<style>
+:root{
+  --bg:#F5F7FC; --surface:#FFFFFF; --ink:#22264A; --soft:#5B6184; --line:#DCE1F0; --field:#F9FAFE; --fieldline:#C9D0E6;
+  --pink:#F2548E; --pinkbg:#FFE8F1; --sun:#E9A21E; --sunbg:#FFF3D6; --mint:#1FA774; --mintbg:#DDF6EC; --grape:#6E5CE6; --grapebg:#ECE9FF; --sky:#2E8FD8; --skybg:#E2F1FC;
+  --shadow:0 1px 2px rgba(34,38,74,.06),0 6px 20px rgba(34,38,74,.06);
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif; --body:"Figtree","Segoe UI",system-ui,sans-serif; --hand:"Caveat","Comic Sans MS",cursive;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  color-scheme:dark; --bg:#15172B; --surface:#1E2140; --ink:#EEF0FF; --soft:#A9AED0; --line:#33385F; --field:#191C36; --fieldline:#40467A;
+  --pink:#FF7EAD; --pinkbg:#3A1F33; --sun:#F6BE4F; --sunbg:#3A301B; --mint:#4FD39F; --mintbg:#173529; --grape:#A195FF; --grapebg:#28244D; --sky:#62B4F0; --skybg:#1A2E44; --shadow:0 1px 2px rgba(0,0,0,.3);
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark; --bg:#15172B; --surface:#1E2140; --ink:#EEF0FF; --soft:#A9AED0; --line:#33385F; --field:#191C36; --fieldline:#40467A;
+  --pink:#FF7EAD; --pinkbg:#3A1F33; --sun:#F6BE4F; --sunbg:#3A301B; --mint:#4FD39F; --mintbg:#173529; --grape:#A195FF; --grapebg:#28244D; --sky:#62B4F0; --skybg:#1A2E44; --shadow:0 1px 2px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;padding-inline:16px;padding-block:0 80px}
+.wrap{max-width:960px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+p{margin:0}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;margin-inline:-16px;padding:10px 16px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.brand{font-family:var(--display);font-weight:800;font-size:17px;margin-right:auto;display:flex;align-items:center;gap:8px}
+.meter{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--soft);font-variant-numeric:tabular-nums}
+.meter .track{width:110px;height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.meter .fill{height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--sun),var(--mint),var(--grape));transition:width .3s}
+.btn{border:0;border-radius:12px;padding:9px 14px;font-weight:700;font-size:14px;background:var(--ink);color:var(--bg)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--fieldline)}
+.btn:hover{filter:brightness(1.08)}
+nav.chips{display:flex;gap:6px;overflow-x:auto;padding:10px 0 2px;scrollbar-width:none}
+nav.chips a{flex:none;text-decoration:none;color:var(--ink);font-size:13px;font-weight:600;padding:5px 11px;border-radius:99px;background:var(--surface);border:1px solid var(--line)}
+nav.chips a:hover{border-color:var(--ink)}
+
+/* hero */
+.hero{padding:34px 0 10px;display:grid;gap:18px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
+.hero h1{font-size:clamp(38px,7vw,64px);font-weight:800;letter-spacing:-.02em}
+.hero h1 .hl{background:linear-gradient(transparent 58%,var(--sunbg) 58%);padding:0 .08em}
+.hero .sub{font-size:18px;color:var(--soft);max-width:60ch}
+.idrow{display:flex;gap:12px;flex-wrap:wrap}
+.idrow label{display:flex;flex-direction:column;font-size:12px;font-weight:700;color:var(--soft);gap:4px;flex:1 1 200px}
+.idrow input{font:inherit;font-size:16px;padding:10px 12px;border-radius:12px;border:1.5px solid var(--fieldline);background:var(--surface);color:var(--ink)}
+.note{font-size:13px;color:var(--soft)}
+
+/* cards */
+section.card{background:var(--surface);border-radius:22px;padding:26px clamp(16px,4vw,34px);margin-top:22px;box-shadow:var(--shadow);border:1px solid var(--line);scroll-margin-top:120px}
+.kicker{display:inline-flex;gap:8px;align-items:center;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:99px;background:var(--a-bg,var(--skybg));color:var(--a,var(--sky))}
+section.card>h2{font-size:clamp(26px,4vw,34px);font-weight:800;margin:12px 0 6px}
+h3{font-size:19px;font-weight:700;margin:26px 0 8px;display:flex;gap:10px;align-items:baseline}
+h3 .step{font-family:var(--hand);font-size:24px;color:var(--a,var(--sky));font-weight:600}
+.lead{color:var(--soft);max-width:65ch}
+.hint{font-size:14px;color:var(--soft);font-style:italic;margin-bottom:8px}
+.gq{margin-top:14px;padding:14px 16px;border-radius:14px;background:var(--a-bg,var(--skybg));display:grid;gap:4px}
+.gq b{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--a,var(--sky))}
+.gq span{font-weight:600;font-size:17px}
+.src{font-size:14px;color:var(--soft);margin-top:8px}
+.t-a1{--a:var(--pink);--a-bg:var(--pinkbg)} .t-a2{--a:var(--sun);--a-bg:var(--sunbg)} .t-b1{--a:var(--mint);--a-bg:var(--mintbg)} .t-b2{--a:var(--grape);--a-bg:var(--grapebg)} .t-sk{--a:var(--pink);--a-bg:var(--pinkbg)} .t-w{--a:var(--sky);--a-bg:var(--skybg)}
+
+/* fields */
+textarea.f{width:100%;font:inherit;font-size:15px;line-height:1.5;color:var(--ink);background:var(--field);border:1.5px solid var(--fieldline);border-radius:12px;padding:10px 12px;resize:vertical;min-height:46px;overflow:hidden}
+textarea.f:focus{border-color:var(--a,var(--sky));background:var(--surface);outline:none;box-shadow:0 0 0 3px var(--a-bg,var(--skybg))}
+textarea.f.done{border-color:color-mix(in srgb,var(--a,var(--sky)) 55%,var(--fieldline))}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.fld{display:grid;gap:5px}
+.fld>span{font-size:13px;font-weight:700;color:var(--soft)}
+.ctx{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+
+.choice{border:1.5px dashed var(--fieldline);border-radius:16px;padding:14px;display:grid;gap:10px;margin-top:12px}
+.choice .where{display:flex;gap:10px;align-items:center;font-weight:700}
+.choice .num{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--a);color:var(--surface);font-size:14px;font-family:var(--display)}
+
+/* tables */
+.tw{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:560px}
+th{text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);padding:8px 10px;border-bottom:2px solid var(--line)}
+td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+td:first-child{font-weight:700;white-space:nowrap}
+.pill{display:inline-block;font-family:var(--display);font-weight:800;width:30px;height:30px;border-radius:9px;text-align:center;line-height:30px;background:var(--skybg);color:var(--sky);margin-right:6px}
+
+.box{padding:14px 16px;border-radius:14px;background:var(--field);border:1px solid var(--line);margin-top:12px;display:grid;gap:6px}
+.box.good{background:var(--mintbg);border-color:transparent} .box.bad{background:var(--pinkbg);border-color:transparent}
+.crit{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:10px}
+.crit div{padding:12px;border-radius:14px;background:var(--field);border:1px solid var(--line);font-size:14px}
+.crit b{display:block;font-family:var(--display);font-size:22px;color:var(--sky)}
+
+/* phrase bank */
+.bank{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:12px}
+details.pb{border:1px solid var(--line);border-radius:14px;background:var(--field);padding:4px 14px}
+details.pb summary{cursor:pointer;font-weight:700;padding:8px 0;list-style:none;display:flex;justify-content:space-between;gap:8px}
+details.pb summary::after{content:"+";font-family:var(--display);font-size:20px;line-height:1;color:var(--soft)}
+details.pb[open] summary::after{content:"–"}
+.starter{display:block;width:100%;text-align:left;border:0;background:transparent;color:var(--ink);font-size:14px;padding:6px 8px;margin:2px -8px;border-radius:8px;line-height:1.4}
+.starter:hover{background:var(--skybg)}
+.words{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.words span{font-size:13px;font-weight:600;padding:4px 10px;border-radius:99px;background:var(--grapebg);color:var(--grape)}
+.words.tone span{background:var(--sunbg);color:color-mix(in srgb,var(--sun) 70%,var(--ink))}
+.upg{display:grid;gap:8px;margin-top:10px}
+.upg div{display:grid;grid-template-columns:1fr 1.6fr;gap:10px;font-size:14px;padding:10px 12px;border-radius:12px;background:var(--field);border:1px solid var(--line)}
+.upg s{color:var(--pink);text-decoration-thickness:1.5px}
+@media (max-width:560px){.upg div{grid-template-columns:1fr}}
+
+/* skeleton */
+.skel{font-size:16px;line-height:2.1;max-width:78ch}
+.skel p{margin-bottom:6px}
+input.gap{font:inherit;font-size:15px;border:0;border-bottom:2px solid var(--a);background:var(--a-bg);color:var(--ink);padding:0 6px;line-height:1.5;border-radius:6px 6px 0 0;max-width:100%;min-width:4ch}
+input.gap:focus{outline:none;background:var(--surface);box-shadow:0 2px 0 var(--a)}
+
+/* part B */
+.pick{display:grid;gap:10px;margin-top:10px}
+.pick label{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:14px;border:1.5px solid var(--line);cursor:pointer;background:var(--field)}
+.pick label:has(input:checked){border-color:var(--sky);background:var(--skybg)}
+.pick input{margin-top:5px;accent-color:var(--sky);width:18px;height:18px}
+.pick b{display:block}
+.timer{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0;padding:12px 14px;border-radius:14px;background:var(--skybg)}
+.timer .clock{font-family:var(--display);font-weight:800;font-size:30px;font-variant-numeric:tabular-nums;min-width:4.2ch}
+.timer .wc{margin-left:auto;font-size:14px;color:var(--soft);font-variant-numeric:tabular-nums}
+textarea.essay{min-height:420px;font-size:16px;line-height:1.7}
+.checks{display:grid;gap:8px;margin-top:10px}
+.checks label{display:flex;gap:10px;align-items:flex-start;font-size:15px;padding:8px 10px;border-radius:10px}
+.checks label:hover{background:var(--field)}
+.checks input{accent-color:var(--mint);width:18px;height:18px;margin-top:3px;flex:none}
+.checks em{font-style:normal;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);min-width:88px;margin-top:3px}
+
+.foot{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:28px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:50;max-width:calc(100% - 32px)}
+.toast.on{opacity:1;transform:translateX(-50%)}
+.fallback{margin-top:12px}
+.fallback textarea{width:100%;min-height:160px;font:13px/1.4 ui-monospace,monospace;border-radius:12px;padding:10px;border:1px solid var(--line);background:var(--field);color:var(--ink)}
+.map{display:grid;gap:6px;margin-top:10px}
+.map div{display:grid;grid-template-columns:64px 1fr auto;gap:10px;align-items:center;padding:8px 12px;border-radius:12px;background:var(--field);font-size:14.5px}
+.map .min{font-weight:700;font-variant-numeric:tabular-nums;color:var(--soft)}
+.map .tag{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:99px;text-align:center}
+.map .ta{background:var(--pinkbg);color:var(--pink)} .map .tb{background:var(--skybg);color:var(--sky)}
+/* model answers */
+.model{margin-top:6px;padding:9px 12px;border-radius:10px;background:var(--mintbg);font-size:14px;line-height:1.5;border-left:4px solid var(--mint)}
+.model::before{content:"Model answer";display:block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mint);margin-bottom:2px}
+.model p+p{margin-top:6px}
+.mi{display:inline;background:var(--mintbg);color:var(--ink);border-radius:6px;padding:1px 6px;margin:0 4px 0 2px;font-size:14px;border-bottom:2px solid var(--mint)}
+.checkbar{margin-top:22px;padding:14px 16px;border-radius:16px;background:var(--mintbg);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.checkbar p{flex:1 1 240px;font-size:14.5px}
+.checkbar p b{display:block;font-family:var(--display);font-size:17px}
+.checkbar .btn{background:var(--mint);color:#fff}
+.checkbar .msg{flex-basis:100%;font-size:13.5px;color:var(--ink)}
+/* 90 min timer */
+.bigtimer{display:flex;align-items:center;gap:8px;padding:5px 6px 5px 12px;border-radius:14px;background:var(--surface);border:1.5px solid var(--line)}
+.bigtimer .bt-clock{font-family:var(--display);font-weight:800;font-size:22px;font-variant-numeric:tabular-nums;min-width:3.4ch;line-height:1}
+.bigtimer .bt-phase{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:99px;background:var(--pinkbg);color:var(--pink)}
+.bigtimer .bt-phase.b{background:var(--skybg);color:var(--sky)}
+.bigtimer .bt-phase.done{background:var(--sunbg);color:var(--sun)}
+.bigtimer button{border:0;border-radius:10px;padding:6px 10px;font-weight:700;font-size:13px;background:var(--ink);color:var(--bg)}
+.bigtimer button.ghost{background:transparent;color:var(--soft);border:1px solid var(--line)}
+.bigtimer.warn{border-color:var(--sun)} .bigtimer.over{border-color:var(--pink)}
+@media (max-width:560px){.brand{flex-basis:100%}.meter .track{width:70px}}
+.finish.locked{background:var(--field);border:1.5px dashed var(--fieldline)}
+.btn:disabled{opacity:.45;cursor:not-allowed;filter:none}
+.finish b{font-family:var(--display);font-size:17px}
+.req{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:6px;font-size:14.5px}
+.req li{display:flex;gap:8px;align-items:center}
+.req li::before{content:"";flex:none;width:16px;height:16px;border-radius:50%;border:2px solid var(--fieldline)}
+.req li.ok{color:var(--soft)} .req li.ok::before{background:var(--mint);border-color:var(--mint)}
+.finish{margin-top:22px;padding:18px;border-radius:16px;background:var(--mintbg)}
+.finish .foot{margin-top:12px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+<style>html{color-scheme:light}body{margin:0}[hidden]{display:none!important}img{max-width:100%}@media (prefers-color-scheme:dark){html{color-scheme:dark}}</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <div class="brand">Paper 1 in Practice</div>
+  <div class="bigtimer" id="bigTimer" role="timer" aria-label="90 minute lesson timer"><span class="bt-phase" id="btPhase">Part A</span><span class="bt-clock" id="btClock">90:00</span><button type="button" id="btGo">Start 90 min</button><button type="button" class="ghost" id="btReset">Reset</button></div>
+  <div class="meter" title="Fields completed"><div class="track"><div class="fill" id="meterFill"></div></div><span id="meterTxt">0%</span></div>
+</div>
+<div class="wrap"><nav class="chips" id="chips"></nav></div></div>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">DP English A: Language and Literature · Paper 1 guided analysis</div>
+    <h1>Paper 1 in <span class="hl">Practice</span></h1>
+    <p class="sub">Four real past-paper texts. Spot the authorial choices, then write a full guided analysis of your own.</p>
+    <div class="idrow">
+      <label for="stuName">Your name<input id="stuName" data-k="name" autocomplete="name" placeholder="Type your name"></label>
+      <label for="stuDate">Date<input id="stuDate" data-k="date" placeholder="e.g. 26 September 2026"></label>
+    </div>
+    <p class="note">Your answers save in this browser as you type. When you finish the whole workbook, a <b>Download PDF</b> button appears at the end so you can keep a copy or hand it in.</p>
+  </header>
+  <main id="main"></main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script>
+(function(){
+const KEY='p1-practice-v1';
+let S={};
+try{S=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){S={}}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const md=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+
+/* ---------------- content ---------------- */
+const CTX=['Text type and source','Producer and voice','Primary audience','Secondary audience','Purpose','Message'];
+const TEXTS=[
+ {id:'a1',cls:'t-a1',tag:'Paper A · Text 1 · 10 min',title:'"In my job I get to... use science to bake!"',
+  src:'Whizz Pop Bang, a British monthly science magazine for 6- to 12-year-olds. A two-page "Interview with a SCIENCE HERO" feature on Ravneet Gill. November 2025 HL Paper 1.',
+  gq:'How is the characterisation of Rav used to promote science to young people?',
+  gqp:'Underline the key words. What does "characterisation" mean for a real person in a magazine? What does "promote" ask you to prove?',
+  where:['Series banner and headline, top of page 1','Caption under the first photograph','Pull-quote heading about her mum','"I have always LOVED science!" section','"Cooking involves lots of experimenting" section and the tart photo','"I use science to help me every day" section','Photographs, colours and icons across both pages','Final section, bottom of page 2'],
+  pick:true},
+ {id:'a2',cls:'t-a2',tag:'Paper A · Text 2 · 10 min',title:'"The practical magic of painting"',
+  src:'Opinion piece by Joe Bennett in The Press, a New Zealand daily newspaper, with a photograph of a visitor looking at Vermeer\'s "The Milkmaid". November 2025 HL Paper 1.',
+  gq:'How and to what effect is language used to express the author\'s opinion?',
+  gqp:'Underline the key words. Two things are asked: HOW is language used, and to WHAT EFFECT? What exactly is Bennett\'s opinion?',
+  where:['Opening line','Lines 2 to 7','Lines 8 to 17','Lines 18 to 24','Lines 25 to 30','Lines 31 to 36','Lines 37 to 39','The photograph'],
+  pick:true},
+ {id:'b1',cls:'t-b1',tag:'Paper B · Text 1 · 7 min',title:'"Ecollusion"',
+  src:'A strip from Nina\'s Adventures, a semi-autobiographical comic strip by Nina Paley. May 2026 HL Paper 1. Revisit it with fresh eyes and aim for sharper evidence.',
+  gq:'How and to what effect are text and image used in this comic strip?',
+  gqp:'This guiding question names two modes. What must every body paragraph therefore include?',
+  where:['Title and "STUFF!" banner','First large panel','Caption and the panel of Nina with her bags','"Don\'t worry!" panel','"It\'s just like STUFF" panel','Final, borderless panel']},
+ {id:'b2',cls:'t-b2',tag:'Paper B · Text 2 · 7 min',title:'AYO National Music Camp 2024: Concert Review 1',
+  src:'Blog concert review by Caitlin Annesley, published by the Australian Youth Orchestra. May 2026 HL Paper 1. Revisit it and sharpen your quotations.',
+  gq:'How and to what effect does the text use descriptive language?',
+  gqp:'"Descriptive language" is broad. List the kinds of descriptive language you expect to find before you look.',
+  where:['Opening paragraph','Bishop Orchestra paragraph (start)','Bishop Orchestra paragraph (middle)','Brislan Chamber Orchestra paragraph','Alexander Orchestra paragraph','Final two paragraphs']},
+];
+const CH=[['choice','Authorial choice'],['evidence','Evidence (quote or describe)'],['gq','How it answers the guiding question'],['effect','Effect on the target audience']];
+
+const BANK=[
+ ['Identifying the text type and source',['This text is a/an [interview feature / opinion column / comic strip / blog review] taken from [source]...','Published in [publication], a [daily newspaper / monthly magazine / organisation\'s website] aimed at ...','Presented as part of the series "...", this [text type] ...','Written by [name], this [text type] combines [written text / photographs / illustrations] to ...','As a [multimodal / text-heavy / image-heavy] text, it relies on both ... and ...']],
+ ['Identifying the audience',['The primary audience is [who], while a secondary audience may include [who].','Given its publication in [source], the text is likely aimed at readers who ...','The [informal register / bright design / specialist vocabulary] suggests an audience of ...','The writer assumes a reader who [already knows / is unfamiliar with / is concerned about] ...']],
+ ['Stating purpose and message',['The writer\'s purpose is to [inform / persuade / entertain / promote / critique / celebrate / satirise] ...','Primarily, the text seeks to ..., while also ...','The central message is that ...','Ultimately, the text suggests that ...','Beneath its [humorous / cheerful / celebratory] surface, the text argues that ...']],
+ ['Building the thesis',['Through its [focus from GQ], the text presents [subject] as ..., encouraging [audience] to ...','[Writer] uses [focus from GQ] to construct [idea], positioning readers to ...','By [verb + focus], the [text type] persuades [audience] that ...','The [text type] combines text and image to expose ..., inviting readers to ...']],
+ ['Opening a body paragraph',['One of the most striking ways the writer [answers GQ] is through ...','The writer first establishes [idea] through ...','Building on this, the writer [develops / deepens / complicates] this idea through ...','A further choice that [answers GQ] is ...','Perhaps most significantly, ...','Finally, the [visual design / structure / closing line] reinforces ...']],
+ ['Referring to written evidence',['In the opening line, the writer states that "..."','The phrase "..." [suggests / implies / conveys] ...','The [verb / adjective / noun / pronoun] "..." carries connotations of ...','This is evident in lines [x to y], where ...','The heading "..." [introduces / frames / announces] ...','The repetition of "..." across [the paragraph / the text] ...','In the final sentence, "...", the writer ...','The list "..., ... and ..." [accumulates / builds / emphasises] ...']],
+ ['Referring to visual evidence',['In the [first / final / largest] panel, ...','In the top-left of the page, the photograph of [subject] shows ...','The caption beneath the image reads "...", which ...','The foregrounded / close-up / full-length image of ... draws the eye to ...','Positioned beside the text about ..., the image [anchors / reinforces / contradicts] ...','The bold, capitalised lettering of "..." [emphasises / highlights] ...','The speech bubble "..." gives [character] a voice that ...','The [bright / muted / monochrome] colour palette creates a mood of ...','The [facial expression / gesture / posture] of ... conveys ...']],
+ ['Explaining meaning and answering the GQ',['Literally, this [shows / describes / states] ..., but it also suggests ...','On the surface, ...; however, the choice also implies ...','In answer to the guiding question, this [characterises / presents / conveys / exposes] ...','This choice constructs [person / idea] as ...','Here, the writer\'s opinion becomes clear: ...','Text and image work together here: the words ..., while the image ...']],
+ ['Explaining the effect on the audience',['For [named audience], this [effect verb] because ...','This invites the reader to [see / question / imagine / recognise] ...','As a result, the reader is likely to feel ... since ...','The effect is to [humanise / reassure / unsettle / amuse / inspire] ...','This positions the reader as [a witness / a fellow consumer / an insider / a sceptic] ...','Readers who [already feel / may assume] ... are encouraged to ...']],
+ ['Linking back to purpose and message',['Consequently, the writer reinforces the message that ...','This supports the wider purpose of ...','In this way, the text moves the reader closer to ...','Therefore, [choice] contributes directly to the text\'s aim of ...']],
+ ['Moving between paragraphs',['While [previous choice] ..., [new choice] ...','This [humour / warmth / urgency] is intensified by ...','Similarly, ...','In contrast, ...','Equally significant is ...','Having established ..., the writer then ...']],
+ ['Concluding',['In conclusion, [writer / text] uses [focus from GQ] to ...','By combining ... with ..., the text ultimately [persuades / invites / encourages] ...','Overall, the [text type] leaves its audience with ...']],
+];
+const VERBS='positions invites encourages compels reassures amuses unsettles evokes heightens reinforces humanises challenges provokes exposes foregrounds undercuts immerses elevates normalises'.split(' ');
+const TONES='playful enthusiastic confiding warm wry irreverent sardonic satirical mock-serious celebratory admiring confident conversational self-deprecating urgent reflective'.split(' ');
+const UPG=[['It grabs the reader\'s attention.','The capitalised headline creates immediate curiosity by withholding the end of the sentence.'],['It makes it easier to understand.','The everyday comparison anchors an abstract idea in an experience the reader already knows.'],['It makes the reader feel emotional.','The childhood anecdote builds empathy, as young readers recognise their own experience in hers.'],['It makes the text more interesting.','The unexpected pairing of "shocking" with "good" surprises the reader and mirrors the audience\'s astonishment.'],['It shows the writer\'s opinion.','The superlative "the best painting ever" delivers the writer\'s verdict with deliberate, blunt confidence.']];
+
+/* skeleton: strings and gap widths (ch) */
+const SKEL=[
+ ['Introduction',['The text is ',12,' taken from Whizz Pop Bang, ',22,' for children aged 6 to 12. Presented as part of the series "Interview with a SCIENCE HERO", it profiles Ravneet Gill, a ',24,'. The primary audience is ',28,', while a secondary audience includes ',30,'. The purpose of the text is to ',26,' by presenting Rav as ',28,'. Its central message is that ',40,'. Through its characterisation of Rav as ',22,', the feature promotes science to young people as ',30,'.']],
+ ['Body paragraph 1: relatable',['The feature first characterises Rav as ',10,' through ',24,' presented as a pull-quote heading. In the heading "',40,'", Rav admits that as a child she was ',26,'. Literally, this shows that ',26,'. In answer to the guiding question, this choice presents Rav as ',26,'. The exclamation mark and the informal phrase "',10,'" create a ',16,' tone. For readers aged 6 to 12, who may also be kept out of adult spaces, this ',26,', because ',32,'. Consequently, the feature reinforces its message that ',36,'.']],
+ ['Body paragraph 2: persistent experimenter',['Building on this, the feature characterises Rav as ',18,', linking baking directly to ',16,'. Under the heading "',24,'", Rav recalls that it took "',16,'" a Portuguese custard tart, listing how the tarts would "',34,'". The hyperbole of "',10,'" and the list of dramatic verbs ',22,', while the precise figure of "',14,'" ',30,'. This answers the guiding question by presenting Rav\'s ',22,' as scientific work. Similarly, the anaphora in "',40,'" characterises her as ',28,'. For young readers, this ',36,', so science seems ',14,'. As a result, ',10,' becomes the quality the feature most wants its readers to copy.']],
+ ['Body paragraph 3: playful and aspirational',['Finally, the visual design characterises Rav as ',22,' whose world combines ',14,'. The ',34,' give the pages the feel of ',16,', while molecule icons are placed beside ',24,'. This juxtaposition ',22,'. The full-length photograph of Rav ',24,' and the caption "',32,'" present her as ',24,'. For children, this ',34,'. The feature closes by turning Rav into a mentor: the heading "',30,'" leads into the imperatives "',18,'". Including "',6,'" in this list ',36,'. Therefore, the design and closing advice reinforce the message that ',26,'.']],
+ ['Conclusion',['In conclusion, the feature characterises Rav as ',22,' to promote science to young people. By combining ',22,' with ',24,', the text encourages readers aged 6 to 12 to ',40,'.']],
+];
+const PLAN=['Text type and source','Audience','Purpose','Message','Thesis','Body paragraph 1: technique, evidence, effect','Body paragraph 2: technique, evidence, effect','Body paragraph 3: technique, evidence, effect','Conclusion idea'];
+const CHOICES=[['A2','Bennett opinion column','How and to what effect is language used to express the author\'s opinion?'],['B1','"Ecollusion" comic strip','How and to what effect are text and image used in this comic strip?'],['B2','AYO concert review','How and to what effect does the text use descriptive language?']];
+const CHECKS=[['Introduction','I named the text type and source.'],['Introduction','I identified the target audience.'],['Introduction','I stated the purpose and the message separately.'],['Introduction','My thesis answers the guiding question and contains no list of techniques.'],['Body','Each body paragraph focuses on ONE authorial choice.'],['Body','Each paragraph includes a short, embedded quotation or a precise visual reference.'],['Body','I explained how each choice answers the guiding question.'],['Body','I named a specific effect on the target audience, with a reason.'],['Body','Each paragraph links back to the purpose or message.'],['Conclusion','I restated my thesis in fresh words, with no new evidence.'],['Language','I used precise effect verbs in place of "shows" and "makes".'],['Language','My register is formal and my quotations are accurate.']];
+
+/* ---------------- render ---------------- */
+const ta=(k,ph='',rows=2,cls='')=>`<textarea class="f ${cls}" id="f-${k.replace(/\./g,'-')}" data-k="${k}" rows="${rows}" placeholder="${esc(ph)}"></textarea><div class="model" data-for="${k}" hidden></div>`;
+const checkbar=(sec,title,txt)=>`<div class="checkbar" data-sec="${sec}"><p><b>${title}</b>${txt}</p><button class="btn" type="button" data-check="${sec}">Check my answers</button><span class="msg" hidden></span></div>`;
+let h='';
+// blueprint
+h+=`<section class="card" id="blueprint"><span class="kicker">Part A · Step 1 · 5 min</span><h2>The Paper 1 blueprint</h2>
+<p class="lead">Every guided analysis follows the same shape. Learn it once and it carries you through any unseen text.</p>
+<h3>Your 90 minutes</h3><div class="map">${[['A','5','Blueprint and phrase bank'],['A','10','Text A1: Rav interview'],['A','10','Text A2: Bennett opinion column'],['A','7','Text B1: "Ecollusion" comic strip'],['A','7','Text B2: AYO concert review'],['A','6','Skeleton response for Text A1'],['B','7','Choose a text and plan'],['B','33','Write a full guided analysis'],['B','5','Self-check']].map(m=>`<div><span class="tag ${m[0]=='A'?'ta':'tb'}">Part ${m[0]}</span><span>${m[2]}</span><span class="min">${m[1]} min</span></div>`).join('')}</div>
+<h3>The introduction: five moves</h3><div class="tw"><table><thead><tr><th>Move</th><th>What it does</th><th>Starter</th></tr></thead><tbody>
+${[['1 Text type','Names exactly what the text is and where it comes from.','This text is a/an [text type] taken from [source]...'],['2 Audience','Who the text is written for: primary and, if useful, secondary.','The primary audience is ..., while a secondary audience may include ...'],['3 Purpose','What the writer wants to achieve.','The writer\'s purpose is to ... by ...'],['4 Message','The main idea the reader should take away. Purpose is the aim; message is the idea.','The central message is that ...'],['5 Thesis','Answers the guiding question in one sentence with your interpretation. No list of techniques.','Through [focus named in the GQ], the [text] presents ..., positioning [audience] to ...']].map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${esc(r[2])}</td></tr>`).join('')}</tbody></table></div>
+<div class="box bad"><b>Weak thesis</b>"The writer uses many techniques to express her opinion." It repeats the question and interprets nothing.</div>
+<div class="box good"><b>Strong thesis</b>"Bennett's language turns a personal opinion into a confident, entertaining verdict, persuading everyday readers that ..." It makes a claim someone could argue with.</div>
+<h3>The body paragraph: T E E A L</h3><div class="tw"><table><thead><tr><th>Step</th><th>What it does</th><th>Starter</th></tr></thead><tbody>
+${[['T','Technique','Topic sentence: ONE authorial choice and the idea it builds.','One of the most striking ways the writer [answers GQ] is through [technique].'],['E','Evidence','A short, embedded quotation or a precise visual reference.','This is evident in the [heading / line / panel], where "..."'],['E','Explain','Literal meaning, then how the choice answers the guiding question.','Literally, this suggests ... In answer to the guiding question, this choice ...'],['A','Audience','The specific effect on the target audience, with a reason.','For [named audience], this [effect verb] because ...'],['L','Link','Connects the effect back to purpose or message.','Consequently, the writer reinforces the message that ...']].map(r=>`<tr><td><span class="pill">${r[0]}</span>${r[1]}</td><td>${r[2]}</td><td>${esc(r[3])}</td></tr>`).join('')}</tbody></table></div>
+<h3>The conclusion</h3><p class="lead">Two or three sentences. Restate the thesis in fresh words, gather your choices into one idea, and end on the effect on the audience. No new evidence.</p>
+<h3>What earns marks <span class="note">(each criterion out of 5, each text out of 20)</span></h3>
+<div class="crit"><div><b>A</b>Understanding and interpretation: accurate reading and a clear answer to the guiding question.</div><div><b>B</b>Analysis and evaluation: a named device earns credit only when its effect is explained.</div><div><b>C</b>Focus and organisation: a thesis, one idea per paragraph, logical movement.</div><div><b>D</b>Language: accurate, formal, precise vocabulary.</div></div>
+</section>`;
+// phrase bank
+h+=`<section class="card" id="phrases"><span class="kicker">Part A · Step 1 continued</span><h2>Phrase bank</h2>
+<p class="lead">Click inside any answer box, then tap a starter to drop it in at your cursor. Swap the words in square brackets for your own.</p>
+<div class="bank">${BANK.map((g,i)=>`<details class="pb" ${i<2?'open':''}><summary>${g[0]}</summary>${g[1].map(s=>`<button type="button" class="starter" data-ins="${esc(s)}">${esc(s)}</button>`).join('')}</details>`).join('')}</div>
+<h3>Effect verbs to use in place of "shows"</h3><div class="words">${VERBS.map(v=>`<span>${v}</span>`).join('')}</div>
+<h3>Tone words</h3><div class="words tone">${TONES.map(v=>`<span>${v}</span>`).join('')}</div>
+<h3>Precision upgrades</h3><div class="upg">${UPG.map(u=>`<div><s>${esc(u[0])}</s><span>${esc(u[1])}</span></div>`).join('')}</div>
+</section>`;
+// texts
+TEXTS.forEach(t=>{
+ h+=`<section class="card ${t.cls}" id="${t.id}"><span class="kicker">Part A · ${t.tag}</span><h2>Text ${t.id.toUpperCase()}: ${esc(t.title)}</h2>
+ <p class="src">${esc(t.src)}</p><div class="gq"><b>Guiding question</b><span>${esc(t.gq)}</span></div>
+ <h3><span class="step">Step 1</span>First read: context grid</h3><p class="hint">Read the whole text once without a pen. Then fill in the grid.</p>
+ <div class="ctx">${CTX.map((c,i)=>`<label class="fld"><span>${c}</span>${ta(t.id+'.ctx.'+i)}</label>`).join('')}</div>
+ <h3><span class="step">Step 2</span>Unpack the guiding question</h3><p class="hint">${esc(t.gqp)}</p>${ta(t.id+'.gqu','',3)}
+ <h3><span class="step">Step 3</span>Authorial choices</h3><p class="hint">For each location, name the choice, give the evidence, explain how it answers the guiding question, and name the effect on the target audience.</p>
+ ${t.where.map((w,i)=>`<div class="choice"><div class="where"><span class="num">${i+1}</span>${esc(w)}</div><div class="grid2">${CH.map(c=>`<label class="fld"><span>${c[1]}</span>${ta(t.id+'.ch.'+i+'.'+c[0])}</label>`).join('')}</div></div>`).join('')}
+ <h3><span class="step">Step 4</span>Draft your thesis</h3><p class="hint">Use the key words of the guiding question. Make a claim. Name the effect on the audience. Do not list techniques.</p>${ta(t.id+'.thesis','',3)}
+ ${t.pick?`<h3><span class="step">Step 5</span>Choose your three strongest choices</h3><p class="hint">Which three would make the strongest body paragraphs? Group rows that build the same idea.</p>${ta(t.id+'.pick','BP1 ...\nBP2 ...\nBP3 ...',3)}`:''}
+ ${checkbar(t.id,'Finished Text '+t.id.toUpperCase()+'?','Compare each of your boxes with a model answer. Yours can be different and still be right: check that you found the same kind of evidence and named a specific effect.')}
+ </section>`;
+});
+// skeleton
+let gi=0;
+h+=`<section class="card t-sk" id="skeleton"><span class="kicker">Part A · Step 6 · 6 min</span><h2>Skeleton response: Text A1</h2>
+<p class="lead">This is the full shape of a guided analysis. Fill each gap with a word or short phrase from your work on Text A1. Watch how every body paragraph moves through T, E, E, A, L.</p>
+<div class="gq"><b>Guiding question</b><span>How is the characterisation of Rav used to promote science to young people?</span></div>
+<div class="skel">${SKEL.map(p=>`<h3>${p[0]}</h3><p>${p[1].map(s=>typeof s==='string'?esc(s):`<input class="gap" id="g-${gi}" data-k="sk.${gi}" style="width:${s+2}ch" aria-label="Gap ${gi+1}"><span class="mi" data-mi="${gi++}" hidden></span>`).join('')}</p>`).join('')}</div>
+${checkbar('sk','Gaps filled?','The model wording appears in green beside each of your gaps. Your wording can differ if the idea matches.')}
+</section>`;
+// part B
+h+=`<section class="card t-w" id="write"><span class="kicker">Part B · 45 min</span><h2>Your full guided analysis</h2>
+<h3><span class="step">Step 7</span>Choose one text and plan (7 min)</h3><p class="hint">Use your Part A notes, but write in your own words.</p>
+<div class="pick">${CHOICES.map((c,i)=>`<label><input type="radio" name="pickText" id="pick-${i}" value="${c[0]}"><span><b>${c[0]}: ${esc(c[1])}</b>${esc(c[2])}</span></label>`).join('')}</div>
+<div class="ctx" style="margin-top:14px">${PLAN.map((p,i)=>`<label class="fld"><span>${p}</span>${ta('plan.'+i,'',i>=4&&i<=7?3:2)}</label>`).join('')}</div>
+${checkbar('plan','Plan done?','Compare your plan with a model plan for the text you chose. Check this BEFORE you start writing.')}
+<h3><span class="step">Step 8</span>Write (33 min)</h3><p class="hint">Suggested timing: introduction 5 min, three body paragraphs 8 min each, conclusion 3 min.</p>
+<div class="timer"><span class="clock" id="clock">33:00</span><button class="btn" type="button" id="tStart">Start timer</button><button class="btn ghost" type="button" id="tReset">Reset</button><span class="wc" id="wc">0 words</span></div>
+${ta('essay','Introduction: text type, audience, purpose, message, thesis...\n\nBody paragraph 1...',16,'essay')}
+${checkbar('essay','Finished writing?','See a model introduction and first body paragraph for your chosen text. Compare the shape: five moves in the introduction, then T E E A L.')}
+<h3><span class="step">Step 9</span>Self-check (5 min)</h3><p class="hint">Tick each item you can find in your response. Fix anything missing if time allows.</p>
+<div class="checks">${CHECKS.map((c,i)=>`<label><input type="checkbox" id="chk-${i}" data-k="chk.${i}"><em>${c[0]}</em><span>${esc(c[1])}</span></label>`).join('')}</div>
+<h3>One target for the timed task</h3><p class="hint">Which checklist item will you focus on next time? How will you make sure it happens?</p>${ta('target','',3)}
+<div class="finish locked" id="finishBox"><b id="finishTitle">Finish to unlock your PDF</b><p id="finishTxt">The download button switches on when every item below is ticked.</p><ul class="req" id="lockList"></ul><div class="foot"><button class="btn" type="button" id="pdfBtn2" disabled>Download my workbook as PDF</button><button class="btn ghost" type="button" id="copyBtn" disabled>Copy all my answers</button></div></div>
+<div class="foot"><button class="btn ghost" type="button" id="resetBtn">Clear all answers</button></div>
+<div class="fallback" id="fallback" hidden><p class="hint">Select all of the text below and copy it.</p><textarea id="fallbackTxt" readonly></textarea></div>
+</section>`;
+document.getElementById('main').innerHTML=h;
+document.getElementById('chips').innerHTML=[['blueprint','Blueprint'],['phrases','Phrase bank'],['a1','A1 Rav'],['a2','A2 Bennett'],['b1','B1 Ecollusion'],['b2','B2 AYO'],['skeleton','Skeleton'],['write','Write']].map(c=>`<a href="#${c[0]}">${c[1]}</a>`).join('');
+
+/* ---------------- state wiring ---------------- */
+const fields=[...document.querySelectorAll('[data-k]')];
+const grow=el=>{if(el.tagName==='TEXTAREA'){el.style.height='auto';el.style.height=(el.scrollHeight+3)+'px'}};
+const gapW=el=>{const base=parseInt(el.dataset.w||el.style.width)||10;el.dataset.w=base;el.style.width=Math.max(base+2,el.value.length+3)+'ch'};
+fields.forEach(el=>{
+  const k=el.dataset.k;
+  if(el.type==='checkbox'){el.checked=!!S[k];el.addEventListener('change',()=>{S[k]=el.checked;save();meter()})}
+  else{
+    if(S[k]!=null)el.value=S[k];
+    el.addEventListener('input',()=>{S[k]=el.value;save();grow(el);if(el.classList.contains('gap'))gapW(el);el.classList.toggle('done',!!el.value.trim());meter();if(k==='essay')wc()});
+    el.classList.toggle('done',!!(el.value||'').trim());
+  }
+});
+document.querySelectorAll('input[name="pickText"]').forEach(r=>{if(S.pickText===r.value)r.checked=true;r.addEventListener('change',()=>{S.pickText=r.value;save();updateLock()})});
+requestAnimationFrame(()=>{document.querySelectorAll('textarea.f').forEach(grow);document.querySelectorAll('input.gap').forEach(gapW)});
+const MINW=200;
+function updateLock(){
+  const words=(S.essay||'').trim().split(/\s+/).filter(Boolean).length;
+  const secs=['a1','a2','b1','b2'].map(id=>{const f=[...document.querySelectorAll(`[data-k^="${id}."]`)];return f.filter(x=>(x.value||'').trim()).length/f.length>=0.5});
+  const gaps=[...document.querySelectorAll('input.gap')],gf=gaps.filter(x=>x.value.trim()).length/gaps.length>=0.5;
+  const ticks=CHECKS.every((c,i)=>S['chk.'+i]);
+  const req=[[secs.every(Boolean),'Complete at least half of each text section (A1, A2, B1, B2)'],[gf,'Fill at least half of the skeleton gaps'],[!!S.pickText,'Choose a text for Part B'],[words>=MINW,`Write at least ${MINW} words in your guided analysis (${words} so far)`],[ticks,'Tick every item in the self-check']];
+  const done=req.every(r=>r[0]);
+  const ll=document.getElementById('lockList');if(ll)ll.innerHTML=req.map(r=>`<li class="${r[0]?'ok':''}">${esc(r[1])}</li>`).join('');
+  const fb=document.getElementById('finishBox');
+  if(fb){const was=!fb.classList.contains('locked');if(done&&!was&&updateLock.ready)toast('Workbook complete. Your PDF is ready to download at the end.');
+    fb.classList.toggle('locked',!done);document.getElementById('pdfBtn2').disabled=!done;document.getElementById('copyBtn').disabled=!done;
+    document.getElementById('finishTitle').textContent=done?'Workbook complete. Well done.':'Finish to unlock your PDF';
+    document.getElementById('finishTxt').textContent=done?'Download your PDF to keep a copy or hand it in.':'The download button switches on when every item below is ticked.'}
+  updateLock.ready=true;
+}
+function meter(){updateLock();const f=fields.filter(e=>e.dataset.k!=='name'&&e.dataset.k!=='date');const d=f.filter(e=>e.type==='checkbox'?e.checked:(e.value||'').trim()).length;const p=Math.round(d/f.length*100);document.getElementById('meterFill').style.width=p+'%';document.getElementById('meterTxt').textContent=p+'%'}
+function wc(){const n=(S.essay||'').trim().split(/\s+/).filter(Boolean).length;document.getElementById('wc').textContent=n+(n===1?' word':' words')}
+meter();wc();
+
+const toastEl=document.getElementById('toast');let tt;
+const toast=m=>{toastEl.textContent=m;toastEl.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>toastEl.classList.remove('on'),2600)};
+
+/* phrase insertion */
+let last=null;
+document.addEventListener('focusin',e=>{if(e.target.matches('textarea.f,input.gap'))last=e.target});
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.starter');if(!b)return;
+  if(!last){toast('Click inside an answer box first, then tap a starter.');return}
+  const s=b.dataset.ins,st=last.selectionStart??last.value.length,en=last.selectionEnd??st;
+  const pre=last.value.slice(0,st),pad=pre&&!/\s$/.test(pre)?' ':'';
+  last.value=pre+pad+s+last.value.slice(en);last.dispatchEvent(new Event('input'));
+  toast('Starter added to your last answer box.');
+});
+
+/* timer */
+let rem=33*60,tid=null;const clock=document.getElementById('clock'),tStart=document.getElementById('tStart');
+const draw=()=>{clock.textContent=String(Math.floor(rem/60)).padStart(2,'0')+':'+String(rem%60).padStart(2,'0')};
+tStart.addEventListener('click',()=>{if(tid){clearInterval(tid);tid=null;tStart.textContent='Resume'}else{tid=setInterval(()=>{rem--;draw();if(rem<=0){clearInterval(tid);tid=null;tStart.textContent='Start timer';toast('Time is up. Finish your sentence and move to the self-check.')}},1000);tStart.textContent='Pause'}});
+document.getElementById('tReset').addEventListener('click',()=>{clearInterval(tid);tid=null;rem=33*60;draw();tStart.textContent='Start timer'});
+
+/* reset with in-page confirm */
+const rb=document.getElementById('resetBtn');let backup=null,undoT=null;
+function applyState(){
+  fields.forEach(el=>{const k=el.dataset.k;if(el.type==='checkbox')el.checked=!!S[k];else{el.value=S[k]||'';el.classList.toggle('done',!!el.value.trim());grow(el);if(el.classList.contains('gap'))gapW(el)}});
+  document.querySelectorAll('input[name="pickText"]').forEach(r=>r.checked=S.pickText===r.value);
+  meter();wc();
+}
+function hideModels(){Object.keys(shown).forEach(k=>{if(shown[k])reveal(k,false);shown[k]=false});
+  document.querySelectorAll('[data-check]').forEach(b=>{b.textContent='Check my answers';delete b.dataset.force});
+  document.querySelectorAll('.checkbar .msg').forEach(m=>m.hidden=true);}
+rb.addEventListener('click',()=>{
+  if(backup){clearTimeout(undoT);S=backup;backup=null;save();applyState();rb.textContent='Clear all answers';toast('Answers restored.');return}
+  backup=JSON.parse(JSON.stringify(S));const keep=S.bt;S={};if(keep)S.bt=keep;save();
+  hideModels();applyState();
+  rb.textContent='Undo clear';toast('All answers cleared. Tap "Undo clear" within 10 seconds to bring them back.');
+  undoT=setTimeout(()=>{backup=null;rb.textContent='Clear all answers'},10000);
+});
+
+/* ---------------- model answers ---------------- */
+const ANS={"texts": {"a1": {"ctx": ["Magazine interview feature (double-page spread) from Whizz Pop Bang, part of the recurring \"Interview with a SCIENCE HERO\" series. Combines first-person answers, pull-quote headings, photographs, captions and decorative icons.", "The magazine's editors frame and design the piece (headline, captions, images); Rav's own first-person voice dominates the body text.", "Children aged 6 to 12 who read a science magazine; many will know Junior Bake Off, which features bakers aged 9 to 12.", "Parents, carers and teachers who buy or recommend the magazine and want children to enjoy science.", "To promote science as enjoyable and achievable by presenting a relatable role model who uses science in a fun, creative job; also to entertain and inspire.", "Science is part of everyday life, even in the kitchen; curiosity, experimenting and persistence are what make someone a scientist."], "gqu": "**Characterisation:** how the magazine constructs Rav as a person through her quoted voice, anecdotes, headings, photographs and captions. She is a real person, but the editors select what we see.\n**Promote science:** show how each choice makes science look attractive, possible or fun.\n**Young people:** every effect must be explained for readers aged 6 to 12.", "ch": [["Label \"hero\"; headline with ellipsis inside a speech bubble", "\"Interview with a SCIENCE HERO\"; \"In my job I get to... use science to bake!\"", "Characterises Rav as admirable; \"get to\" frames her job as a treat, and the bubble fuses science with baking in her own voice.", "Children link heroism with science; the ellipsis creates a moment of suspense resolved by a fun surprise."], ["Tricolon of roles", "\"Ravneet Gill, baker, TV presenter and psychologist\"", "Presents Rav as multi-talented and shows that science opens varied, creative careers.", "Widens children's picture of what a scientist looks like; aspirational."], ["Confessional childhood anecdote; informal, exclamatory first person", "\"My mum wasn't keen on me helping in the kitchen because I was very messy!\"", "Characterises Rav as an ordinary, imperfect child before she became an expert.", "Readers who are also messy or kept out of adult spaces see themselves in her, so a science career feels possible."], ["Capitalisation for emphasis; school-to-career narrative; honest admission", "\"LOVED\"; \"any lesson that was based around biology or animals made me really happy and engaged\"; \"It wasn't always easy but I learned so much.\"", "Roots Rav's success in the school science lessons readers take now.", "Connects the reader's own classroom to a future career; honesty about difficulty models resilience."], ["Anecdote of failure; hyperbole; list of dramatic verbs; precise number", "\"countless hours to nail\"; \"explode, or the custard would scramble, burn or spill over\"; \"around 20 attempts, but I got it right in the end\"", "Characterises Rav as a persistent experimenter using trial and error, the heart of the scientific method.", "The comic chaos entertains; failure is normalised; readers learn that persistence brings success."], ["Sensory imagery with anaphora (\"what the...\")", "\"what the pan sounds like, what the bubbles might look like, what the smells are\"", "Presents Rav as a close observer who uses her senses, a key scientific skill.", "Children can imagine doing this themselves; science becomes hands-on and \"fun\"."], ["Visual design: taped scrapbook photos, pink and sprinkles, molecule icons beside baking tools; photo with her cat; full-length pose", "Molecule icons beside a whisk, rolling pin and cupcake; \"Rav is a huge animal fan – this is her cat Armand\"; peace signs, pink trousers", "Characterises Rav as playful, warm and youthful, and visually fuses science with baking.", "Makes science feel friendly and unintimidating; matches the tastes of young readers."], ["Imperatives; direct address; list of verbs", "\"If you want to be a scientist when you grow up...\" / \"...spend your time being curious! Research, read, play...\"", "Turns Rav into a mentor who hands the reader a clear route into science.", "Including \"play\" tells children their everyday activities already count as science; a joyful call to action."]], "thesis": "Whizz Pop Bang characterises Rav as a relatable, persistent and playful \"science hero\", promoting science to young readers as a joyful, everyday activity that is already within their reach.", "pick": "BP1  Relatable: the messy-child anecdote and \"I have always LOVED science!\" (rows 3 and 4).\nBP2  Persistent experimenter: the custard tart failures and the sensory sugar description (rows 5 and 6).\nBP3  Playful and aspirational: visual design, the \"hero\" framing and the closing advice (rows 1, 7 and 8)."}, "a2": {"ctx": ["Online newspaper opinion column from The Press, marked \"OPINION:\", with headline, byline and a large photograph.", "Joe Bennett, columnist. A conversational, witty, self-deprecating first-person voice.", "General adult readers of a New Zealand daily newspaper; most are not art experts.", "Readers interested in art and culture, including those who might disagree with his view of modern art.", "To persuade readers that the 17th-century Dutch still life is \"the best painting ever\", and to entertain them while doing so.", "Great art comes from modest, practical mastery of craft and close attention to ordinary things; such art seems to stop time. Implicitly, art that is self-focused, subsidised or preachy falls short."], "gqu": "**Language:** diction, sentence structure, imagery, tone and humour. The photograph is secondary here.\n**Opinion:** (1) Dutch still lifes are the best painting ever; (2) their greatness comes from craft and trade; (3) art defeats time.\n**Effect:** how each choice persuades or entertains a non-expert newspaper reader.", "ch": [["Hypophora (asks and answers own questions); blunt short answers; colloquial register", "\"What do I know about painting? Nothing at all. Does that matter? Hell no. I have eyes.\"", "Establishes the basis of his opinion: ordinary seeing is authority enough. Builds a plain-speaking persona.", "Disarms non-expert readers and aligns them with him; the humour builds trust."], ["Imperative plus list of fragments; anaphora of \"Or\"; precise sensory detail; superlative verdict", "\"Take a lobster. Or some oyster shells. Or a torn loaf.\"; \"bulbous flank reflects the light in a dull sheen\"; \"And still the best painting ever.\"", "The language composes a still life in words, so the reader sees the beauty he praises before hearing his verdict.", "The reader visualises each object; the accumulation builds admiration, and the short verdict lands with confidence."], ["Short declarative sentences; simplified history; aphorism; irreverent humour", "\"It began with money.\"; \"Money first serves needs. When needs are satisfied it serves pleasures.\"; \"to wow peasants or titillate bishops\"; \"Why, I can't tell you.\"", "Presents his argument with brisk, confident simplicity and a sceptical, comic tone towards religious grandeur.", "History feels easy to follow; the reader is entertained and trusts the voice."], ["Simile with a local reference; delicate imagery", "\"as fresh as a bellbird's voice\"; \"the shimmer of a pigeon's breast, a bead of water on a nasturtium leaf\"", "Conveys his admiration for the vitality of the paintings and the difficulty of the painters' challenges.", "New Zealand readers connect distant Dutch art to a familiar local sound; the precise images prove the skill involved."], ["Diction of trade and commerce; negative tricolon; turn with \"But\"", "\"They were artisans\"; \"Selling was the test and the purpose.\"; \"no creative grants, no residencies, no academic sinecures\"; \"But for all that, it was a form of magic.\"", "Praises craft and market discipline; quietly criticises modern subsidised art; resolves the title's paradox of \"practical magic\".", "Readers are invited to value skill and usefulness; readers from the art world may feel provoked."], ["Short philosophical sentences; extended metaphor of time as a river; comic deflation", "\"Everything is ephemeral. Nothing stops the onward rush of time. But art seems to.\"; \"durable blob of two-dimensional colour\"; \"Here is the lobster that never rots.\"", "Expresses his belief that art defeats time, while the humorous diction keeps the big idea grounded.", "A profound idea becomes memorable and amusing for a general reader."], ["Short sentences; alliteration; paradox", "\"They had the modesty of mastery.\"; \"They had nothing to say, and no one has said it better.\"", "Delivers the final verdict: mastery without a message is supreme; a jab at art that \"preached\" themes.", "A witty, quotable ending leaves the reader amused and persuaded."], ["Image of a viewer, seen from behind, gazing at an ornately framed painting", "A man looks at \"The Milkmaid\" (\"a girl pouring milk\", line 19) against a dark wall", "Models the act of looking the column recommends (\"I have eyes\") and shows the art still admired centuries later.", "Places the reader in the viewer's position, ready to look for themselves."]], "thesis": "Bennett's language turns a personal opinion into a confident, entertaining verdict, persuading everyday readers that the Dutch still life is \"the best painting ever\" because its painters humbly mastered the art of seeing ordinary things.", "pick": "BP1  Persona and voice: the opening hypophora and the blunt, comic short sentences (rows 1 and 3).\nBP2  Language that paints: the list of fragments, sensory detail and the bellbird simile (rows 2 and 4).\nBP3  Craft and time: diction of trade, the river metaphor and the paradoxical ending (rows 5, 6 and 7)."}, "b1": {"ctx": ["Satirical, semi-autobiographical comic strip from Nina's Adventures: title banner, six panels, captions, speech bubbles and labels.", "Nina Paley, cartoonist. Captions shift between a mock-advertising voice and an ironic narrator; the cartoon \"Nina\" is the consumer.", "Adult comic readers, especially environmentally aware consumers who buy \"green\" products.", "Anyone influenced by eco-marketing; readers interested in environmental debate.", "To satirise greenwashing and consumerism and to provoke reflection through humour.", "Eco-labelled consumption is still consumption: green branding soothes the conscience and raises profit while the environmental harm continues."], "gqu": "Every paragraph must discuss **text AND image** and show how they work together: confirming, amplifying or contradicting each other. The \"effect\" is on environmentally aware readers.", "ch": [["Portmanteau title; generic noun; sparkles and floating objects", "\"Ecollusion\" (eco + collusion); \"STUFF!\" surrounded by a lamp, TV, mug, shoe, keyboard and teddy", "Announces the satire; the generic noun reduces goods to clutter while the sparkles mimic advertising glamour.", "The reader is primed to distrust \"eco\" claims and is amused from the start."], ["Parallel exclamatory declaratives in bold; polluted landscape", "\"It CONSUMES RESOURCES! It DEGRADES THE ENVIRONMENT! It generates VAST PILES OF TOXIC WASTE!\"; \"STUFFCORP\" factory; sofa and lamp in the wasteland", "Words list the harms while the image places domestic objects in the pollution, linking home comforts to industrial damage.", "Readers cannot separate their own purchases from the damage shown."], ["Inclusive pronoun; scare quotes; exaggerated expression and sweat marks", "\"Yes, we all know our 'consumer society' is bad for the Earth...\"; \"But give up consuming?! Do I have to?!\"; bags labelled \"NEW!\", \"THINGO\", \"PRODUCT\"", "Exposes the gap between knowing and acting; her childlike whine makes consumption a dependency.", "Readers recognise their own reluctance; laughter mixes with discomfort."], ["Parody of advertising: reassuring imperative, inclusive \"we\", eco-seal emblem, trademark", "\"Don't worry! We share your concerns... That's why we've developed ECO-STUFF\"; tree-and-sun seal; \"Look for this sticker!\"", "Shows how marketing borrows nature imagery to sell the same goods.", "Readers learn to read eco-labels critically."], ["Deflating comparison; repeated \"eco-\" labels; naive reaction", "\"It's just like STUFF, except it costs more and has a little green sticker on it!\"; \"eco-mug\", \"eco-lamp\", \"eco-gadget\"; \"Oooh... pretty!\"", "The words strip away the pretence while the image shows the prefix stuck mechanically on everything; looks replace ethics.", "The absurd repetition is funny, and readers see that only the price and label change."], ["Dramatic irony between speech and image; contrasting adjectives; price tags", "\"I'm helping the ENVIRONMENT!\"; \"...the little bitty markup that pays for a great big delusion!\"", "The image of overconsumption contradicts her claim; the caption names the delusion, echoing the title's \"-llusion\".", "Readers laugh, then realise the joke is on consumers like them; they are invited to buy less."]], "thesis": "In \"Ecollusion\", text and image work together to expose \"eco\" consumerism as a comforting delusion, inviting environmentally conscious readers to laugh at the cartoon Nina and then recognise her habits as their own.", "pick": ""}, "b2": {"ctx": ["Online blog concert review on the AYO website, with navigation, a \"Donate\" button, a photograph and a government-funding footer.", "Caitlin Annesley, writing for AYO; an enthusiastic, evaluative voice that refers to herself as \"this reviewer\".", "The AYO community: participants, parents, alumni, supporters and donors.", "Classical music lovers and prospective applicants to the camp.", "To celebrate the concert and promote AYO's programme as producing professional-standard musicians, implicitly encouraging support and applications.", "Young musicians, given this training, can perform at a world-class level; \"good for a youth orchestra\" is a patronising standard."], "gqu": "Evaluative adjectives and adverbs, metaphor and simile, hyperbole, sensory and physical imagery, contrasting diction, wordplay. The effect is on the AYO community and how it persuades them of the players' excellence.", "ch": [["Fragments of quoted adjectives; tricolon; comparison to professionals", "\"World-class\". \"Amazing\". \"Virtuosic\".; \"a glorious concert comparable to a top-tier professional ensemble\"", "Uses the language of elite praise as the benchmark, then claims the orchestras met it.", "Sets an elevated standard immediately; readers see young players as professionals."], ["Metaphors of physical force and motion; hyperbole", "\"was a rollercoaster, such was the musical G-force exerted on the audience's ears\"; \"a gut-punch of an opening\"", "Translates sound into bodily sensation.", "Readers who were not there feel the power of the music; builds excitement."], ["Wordplay that subverts expectation; negative words redirected as praise", "\"was shocking. Shockingly good, that is.\"; \"frightening intensity\"; \"daredevil solo was otherworldly in its brazen energy\"", "Creates a playful voice and conveys the thrill of the performance.", "The reader's surprise mirrors the audience's; humour keeps the reader engaged."], ["Shift in diction from violent to delicate", "\"a delicately ethereal contrast to the Bishop Orchestra's earth-shattering introduction\"; \"consistently gorgeous sound across a huge dynamic range\"", "The change in vocabulary mirrors the change in the music and shows the range of the camp.", "Variety sustains interest; \"refinement of an experienced professional group\" repeats the professional comparison."], ["Everyday analogy; hyperbole of immersion", "\"the musical equivalent of a brisk morning run after the evening calm\"; \"daringly frantic pace\"; \"pulled into a universe of music where all words were lost\"", "Makes classical music accessible through a familiar image; admits that words fail.", "Readers of all levels grasp the energy; the hyperbole conveys total absorption."], ["Circular structure; quoted put-down; fragment; balanced final sentences", "the reported put-down, \"a demeaning description sometimes thrown at young musicians\"; \"world-class, amazing, virtuosic music-making. And achieved in one week.\"; \"It's good for an orchestra.\"", "Returns to the opening adjectives, now fused into one phrase, to rebut condescension.", "Leaves readers persuaded and proud; supports AYO's promotional aim."]], "thesis": "The review's descriptive language recreates the concert as an overwhelming physical experience, persuading the AYO community that its young musicians perform at a world-class standard that needs no allowance for their age.", "pick": ""}}, "skel": ["an interview feature", "a British monthly science magazine", "baker, TV presenter and psychologist", "young readers who are curious about science", "the parents and teachers who buy the magazine", "promote science as fun and achievable", "a role model young readers can relate to", "science is part of everyday life, and curiosity and persistence matter most", "relatable, persistent and playful", "a joyful activity already within their reach", "relatable", "a confessional childhood anecdote", "My mum wasn't keen on me helping in the kitchen because I was very messy!", "kept out of the kitchen for being messy", "even a successful chef once struggled", "an ordinary person with a familiar flaw", "very messy", "light-hearted, confiding", "invites them to see themselves in Rav", "her scientific story begins with a childhood like theirs", "science is open to anyone, including messy, curious children", "a persistent experimenter", "the scientific method", "Cooking involves lots of experimenting.", "countless hours to nail", "explode, or the custard would scramble, burn or spill over", "countless", "turn failure into comic chaos", "around 20 attempts", "grounds the story in measurable trial and error", "repeated testing and adjusting", "what the pan sounds like, what the bubbles might look like, what the smells are", "a close observer who uses all her senses", "normalises failure and shows that experiments happen in their own kitchens", "hands-on and fun", "persistence", "a playful, aspirational figure", "science and fun", "bright pink background, scattered sprinkles and taped photographs", "a friend's scrapbook", "a whisk, a rolling pin and cupcakes", "visually fuses science with baking", "making peace signs in pink trousers", "Rav is a huge animal fan – this is her cat Armand", "youthful, warm and approachable", "removes the idea that scientists are distant or serious", "If you want to be a scientist when you grow up...", "Research, read, play", "play", "tells children that their everyday activities already count as science", "science is joyful and achievable", "relatable, persistent and playful", "her first-person anecdotes", "a bright, playful visual design", "see their own curiosity and mistakes as the first steps of a scientific life"], "plans": {"A2": ["Online opinion column, The Press (NZ daily)", "General adult newspaper readers, mostly non-experts", "Persuade readers the Dutch still life is the best painting; entertain", "Great art is modest mastery of craft that stops time", "Bennett's language turns a personal opinion into a confident, entertaining verdict, persuading everyday readers that the Dutch still life is \"the best painting ever\".", "Plain-speaking persona: \"What do I know about painting? Nothing at all... Hell no. I have eyes.\" / aligns non-expert reader with him, builds trust", "Language that paints: \"Take a lobster. Or some oyster shells. Or a torn loaf.\"; \"bulbous flank\"; \"as fresh as a bellbird's voice\" / reader visualises and admires before the verdict", "Craft and time: \"Selling was the test and the purpose\"; \"Here is the lobster that never rots\"; \"the modesty of mastery\" / values craft, gently mocks modern art, witty close", "Humour and humility make a bold aesthetic judgement persuasive to ordinary readers"], "B1": ["Satirical comic strip, Nina's Adventures", "Environmentally aware adult consumers", "Satirise greenwashing; provoke reflection", "Eco-labelled consumption is still consumption", "In \"Ecollusion\", text and image work together to expose \"eco\" consumerism as a comforting delusion, inviting readers to recognise the cartoon Nina's habits as their own.", "Consequences: bold exclamatory list + STUFFCORP landscape with sofa and lamp / links home comfort to pollution", "Parody of marketing: \"Don't worry! We share your concerns...\" + eco-seal; \"just like STUFF, except it costs more\" + \"eco-mug\" labels / exposes the empty label", "Dramatic irony: \"I'm helping the ENVIRONMENT!\" beside bags and price tags; \"great big delusion\" / reader laughs, then recognises self", "The humour lowers the reader's guard so the critique of their own habits can land"], "B2": ["Blog concert review, AYO website", "AYO community: players, parents, donors, supporters", "Celebrate the concert; promote AYO's programme", "Young musicians can be world-class", "The review's descriptive language recreates the concert as an overwhelming physical experience, persuading the AYO community that its young musicians perform at a world-class standard.", "Physical metaphor: \"rollercoaster\", \"G-force\", \"gut-punch\" / readers feel the music's power", "Contrast and wordplay: \"Shockingly good, that is.\"; \"delicately ethereal\" vs \"earth-shattering\"; \"brisk morning run\" / surprise and variety mirror the concert", "Circular structure: opening adjectives return as \"world-class, amazing, virtuosic music-making\"; \"It's good for an orchestra.\" / rebuts condescension, pride", "Description does the work of argument: by making the reader feel the concert, it proves the players' excellence"]}, "models": {"A2": ["This text is an online opinion column by Joe Bennett, published in The Press, a New Zealand daily newspaper. Its primary audience is general adult readers, most of whom are not art experts, while a secondary audience may include readers with an interest in art and culture. Bennett's purpose is to persuade these readers that the 17th-century Dutch still life is \"the best painting ever\", and to entertain them along the way. His central message is that great art comes from modest, practical mastery of craft and from close attention to ordinary things. Bennett's language turns a personal opinion into a confident, entertaining verdict, persuading everyday readers that the Dutch still life deserves this title because its painters humbly mastered the art of seeing.", "Bennett first establishes his authority through a plain-speaking persona built on hypophora. The column opens with \"What do I know about painting? Nothing at all. Does that matter? Hell no. I have eyes.\" Literally, he admits he has no expertise, yet the blunt answers and the colloquial \"Hell no\" turn this admission into confidence. In answer to the guiding question, the choice reveals the foundation of his opinion: careful looking is enough to judge art. For non-expert newspaper readers, this is disarming, because it assures them that they too are qualified to agree. Consequently, the reader is aligned with Bennett before he states his verdict."], "B1": ["This text is \"Ecollusion\", a satirical strip from Nina's Adventures, a semi-autobiographical comic by Nina Paley. Its primary audience is environmentally aware adult consumers, particularly those who buy products marketed as \"green\". Paley's purpose is to satirise greenwashing and provoke reflection through humour. The central message is that eco-labelled consumption is still consumption. In \"Ecollusion\", text and image work together to expose \"eco\" consumerism as a comforting delusion, inviting readers to laugh at the cartoon Nina and then recognise her habits as their own.", "Paley first makes the consequences of consumption impossible to ignore by pairing an emphatic caption with a degraded landscape. The caption \"It CONSUMES RESOURCES! It DEGRADES THE ENVIRONMENT! It generates VAST PILES OF TOXIC WASTE!\" uses three parallel exclamatory declaratives, with bold capitals intensifying each harm. Beneath it, the \"STUFFCORP\" factory pours waste into a river while a sofa, lamp and television lie in the wasteland. The text names the damage, while the image locates familiar household objects inside it. For environmentally aware readers, this link between the living room and the polluted river is uncomfortable, because it implicates their own purchases. Consequently, the strip establishes the stakes that the later \"eco-stuff\" will pretend to solve."], "B2": ["This text is an online blog concert review by Caitlin Annesley, published on the website of the Australian Youth Orchestra, an organisation that trains aspiring musicians. Its primary audience is the AYO community of participants, parents, alumni and donors, while a secondary audience includes classical music lovers and prospective applicants. The purpose is to celebrate the National Music Camp concert and promote AYO's programme. The central message is that young musicians, given this training, can perform at a world-class level. The review's descriptive language recreates the concert as an overwhelming physical experience, persuading the AYO community that its young musicians perform at a standard that needs no allowance for their age.", "Annesley first conveys the power of the performance through metaphors of physical force. Listening to the Bishop Orchestra \"was a rollercoaster, such was the musical G-force exerted on the audience's ears\", and the piece is summed up as \"a gut-punch of an opening\". Literally, music cannot push or punch, yet these images translate sound into bodily sensation. In answer to the guiding question, the descriptive language makes the reader feel the concert physically. For AYO supporters who may not have attended, this creates excitement and a sense of having been there, because the sensations of a thrill ride are familiar to everyone. As a result, the review establishes the orchestra's intensity as evidence of its excellence."]}};
+const paras=s=>String(s).split('\n').filter(Boolean).map(x=>'<p>'+md(x)+'</p>').join('');
+function modelFor(k){
+  let m;
+  if(m=k.match(/^(a1|a2|b1|b2)\.ctx\.(\d)$/))return ANS.texts[m[1]].ctx[+m[2]];
+  if(m=k.match(/^(a1|a2|b1|b2)\.ch\.(\d)\.(\w+)$/))return (ANS.texts[m[1]].ch[+m[2]]||[])[['choice','evidence','gq','effect'].indexOf(m[3])];
+  if(m=k.match(/^(a1|a2|b1|b2)\.(gqu|thesis|pick)$/))return ANS.texts[m[1]][m[2]];
+  if(m=k.match(/^plan\.(\d)$/)){const p=S.pickText&&ANS.plans[S.pickText];return p?p[+m[1]]:null}
+  return null;
+}
+function secFields(sec){
+  if(sec==='sk')return [...document.querySelectorAll('input.gap')];
+  if(sec==='plan')return [...document.querySelectorAll('[data-k^="plan."]')];
+  if(sec==='essay')return [document.querySelector('[data-k="essay"]')];
+  return [...document.querySelectorAll(`[data-k^="${sec}."]`)];
+}
+function reveal(sec,on){
+  if(sec==='sk'){document.querySelectorAll('.mi').forEach(el=>{el.textContent=ANS.skel[+el.dataset.mi]||'';el.hidden=!on});return}
+  if(sec==='essay'){
+    let box=document.getElementById('essayModel');
+    if(!box){box=document.createElement('div');box.id='essayModel';box.className='model';document.querySelector('[data-k="essay"]').nextElementSibling.after(box)}
+    const keys=S.pickText?[S.pickText]:['A2','B1','B2'];
+    box.innerHTML=keys.map(k=>`<p><b>${k}${S.pickText?'':' (choose a text above to see just one)'}</b></p>`+paras(ANS.models[k].join('\n'))).join('');
+    box.hidden=!on;return;
+  }
+  secFields(sec).forEach(el=>{const slot=document.querySelector(`.model[data-for="${el.dataset.k}"]`);if(!slot)return;const a=modelFor(el.dataset.k);
+    if(sec==='plan'&&!a){slot.innerHTML='<p>Choose a text in Step 7 to see its model plan.</p>'}else if(a){slot.innerHTML=paras(a)}
+    slot.hidden=!on||(!a&&sec!=='plan')});
+}
+const shown={};
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-check]');if(!b)return;
+  const sec=b.dataset.check,bar=b.closest('.checkbar'),msg=bar.querySelector('.msg');
+  if(shown[sec]){shown[sec]=false;reveal(sec,false);b.textContent='Check my answers';msg.hidden=true;return}
+  const f=secFields(sec),done=f.filter(x=>(x.value||'').trim()).length;
+  if(sec==='plan'&&!S.pickText){msg.textContent='Choose one text in Step 7 first, then check your plan.';msg.hidden=false;return}
+  if(done/f.length<0.5&&!b.dataset.force){b.dataset.force='1';b.textContent='Show anyway';msg.textContent=`You have filled ${done} of ${f.length} boxes. Try at least half before you look: the thinking is where the learning happens.`;msg.hidden=false;return}
+  delete b.dataset.force;shown[sec]=true;reveal(sec,true);b.textContent='Hide model answers';msg.hidden=true;
+});
+document.querySelectorAll('input[name="pickText"]').forEach(r=>r.addEventListener('change',()=>{setTimeout(()=>{if(shown.plan)reveal('plan',true);if(shown.essay)reveal('essay',true)})}));
+
+/* ---------------- 90 minute timer ---------------- */
+(function(){
+  const TOTAL=90*60,el=document.getElementById('bigTimer'),ck=document.getElementById('btClock'),ph=document.getElementById('btPhase'),go=document.getElementById('btGo'),rs=document.getElementById('btReset');
+  let t=S.bt||{end:null,rem:TOTAL},iv=null,warned45=false,warned85=false;
+  const left=()=>t.end?Math.max(0,Math.round((t.end-Date.now())/1000)):t.rem;
+  const persist=()=>{S.bt=t;save()};
+  function paint(){const r=left(),el2=TOTAL-r;ck.textContent=String(Math.floor(r/60)).padStart(2,'0')+':'+String(r%60).padStart(2,'0');
+    ph.className='bt-phase'+(r===0?' done':el2>=45*60?' b':'');ph.textContent=r===0?'Time':el2>=45*60?'Part B':'Part A';
+    el.classList.toggle('warn',r>0&&r<=5*60);el.classList.toggle('over',r===0);
+    if(t.end&&el2>=45*60&&!warned45&&r>0){warned45=true;if(el2<45*60+5)toast('45 minutes gone. Move on to Part B: choose your text and plan.')}
+    if(t.end&&r<=5*60&&!warned85&&r>0){warned85=true;if(r>5*60-5)toast('5 minutes left. Start your self-check.')}
+    if(r===0&&t.end){t={end:null,rem:0};persist();stop();go.textContent='Start 90 min';toast('90 minutes are up. Finish the self-check to unlock your PDF.')}}
+  function stop(){clearInterval(iv);iv=null}
+  function run(){stop();iv=setInterval(paint,1000)}
+  go.addEventListener('click',()=>{if(t.end){t={end:null,rem:left()};stop();go.textContent='Resume'}else{if(t.rem<=0)t.rem=TOTAL;t={end:Date.now()+t.rem*1000,rem:null};run();go.textContent='Pause'}persist();paint()});
+  let arm=null;rs.addEventListener('click',()=>{if(!arm){rs.textContent='Sure?';arm=setTimeout(()=>{arm=null;rs.textContent='Reset'},3000);return}clearTimeout(arm);arm=null;rs.textContent='Reset';stop();t={end:null,rem:TOTAL};warned45=warned85=false;persist();go.textContent='Start 90 min';paint()});
+  if(t.end){warned45=(TOTAL-left())>=45*60;warned85=left()<=5*60;run();go.textContent='Pause'}else if(t.rem<TOTAL){go.textContent=t.rem>0?'Resume':'Start 90 min'}
+  paint();
+})();
+
+/* ---------------- export text ---------------- */
+const v=k=>(S[k]||'').trim();
+function skelText(p){let out='';p[1].forEach(s=>{if(typeof s==='string')out+=s;else{const k='sk.'+SKEL_IDX++;out+=v(k)||'________'}});return out}
+let SKEL_IDX=0;
+function plainText(){
+  let o=`PAPER 1 IN PRACTICE\nName: ${v('name')}\nDate: ${v('date')}\n\n`;
+  TEXTS.forEach(t=>{o+=`=== TEXT ${t.id.toUpperCase()}: ${t.title}\nGuiding question: ${t.gq}\n`;CTX.forEach((c,i)=>o+=`${c}: ${v(t.id+'.ctx.'+i)}\n`);o+=`Guiding question unpacked: ${v(t.id+'.gqu')}\n`;t.where.forEach((w,i)=>{o+=`\n[${i+1}] ${w}\n`;CH.forEach(c=>o+=`  ${c[1]}: ${v(t.id+'.ch.'+i+'.'+c[0])}\n`)});o+=`\nThesis: ${v(t.id+'.thesis')}\n`;if(t.pick)o+=`Three strongest: ${v(t.id+'.pick')}\n`;o+='\n'});
+  SKEL_IDX=0;o+='=== SKELETON RESPONSE: TEXT A1\n';SKEL.forEach(p=>o+=`${p[0]}\n${skelText(p)}\n\n`);
+  o+=`=== FULL GUIDED ANALYSIS\nText chosen: ${S.pickText||''}\n`;PLAN.forEach((p,i)=>o+=`${p}: ${v('plan.'+i)}\n`);o+=`\n${v('essay')}\n\nSelf-check:\n`;CHECKS.forEach((c,i)=>o+=`[${S['chk.'+i]?'x':' '}] ${c[1]}\n`);o+=`\nTarget: ${v('target')}\n`;return o;
+}
+document.getElementById('copyBtn').addEventListener('click',()=>{
+  const txt=plainText();
+  const fb=()=>{const f=document.getElementById('fallback'),t=document.getElementById('fallbackTxt');t.value=txt;f.hidden=false;t.focus();t.select()};
+  try{navigator.clipboard.writeText(txt).then(()=>toast('All your answers are copied.'),fb)}catch(e){fb()}
+});
+
+/* ---------------- PDF ---------------- */
+const clean=s=>String(s||'').replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/…/g,'...').replace(/[–—]/g,'-').replace(/[^\x09\x0A\x0D\x20-\x7E -ÿ]/g,'');
+const COL={a1:[242,84,142],a2:[233,162,30],b1:[31,167,116],b2:[110,92,230],sk:[242,84,142],w:[46,143,216],ink:[34,38,74],soft:[91,97,132]};
+function buildPdf(){
+  const {jsPDF}=window.jspdf;const d=new jsPDF({unit:'mm',format:'a4'});const W=210,M=16,CW=W-2*M;let y=M;
+  const need=h=>{if(y+h>297-M){d.addPage();y=M}};
+  const txt=(s,o={})=>{d.setFont('helvetica',o.b?'bold':(o.i?'italic':'normal'));d.setFontSize(o.size||10.5);d.setTextColor(...(o.c||COL.ink));const L=d.splitTextToSize(clean(s),o.w||CW);const lh=(o.size||10.5)*0.45;L.forEach(l=>{need(lh);d.text(l,o.x||M,y+lh*0.8);y+=lh});y+=o.after??2};
+  const head=(s,c,kick)=>{need(20);if(kick){txt(kick.toUpperCase(),{size:8,b:true,c,after:1})}txt(s,{size:16,b:true,after:1});d.setDrawColor(...c);d.setLineWidth(0.8);d.line(M,y,M+30,y);y+=5};
+  const sub=(s,c)=>{need(10);y+=2;txt(s,{size:11.5,b:true,c:c||COL.ink,after:1.5})};
+  const tbl=(head,body,c,widths)=>{d.autoTable({startY:y,head:[head],body:body.map(r=>r.map(clean)),margin:{left:M,right:M},styles:{font:'helvetica',fontSize:8.8,cellPadding:2,textColor:COL.ink,lineColor:[220,225,240],lineWidth:0.2,valign:'top'},headStyles:{fillColor:c,textColor:255,fontStyle:'bold'},columnStyles:widths||{},alternateRowStyles:{fillColor:[249,250,254]}});y=d.lastAutoTable.finalY+5};
+  const blank=s=>s||' ';
+  // cover
+  d.setFillColor(245,247,252);d.rect(0,0,W,60,'F');y=22;
+  txt('DP ENGLISH A: LANGUAGE AND LITERATURE  |  PAPER 1',{size:8.5,b:true,c:COL.soft,after:3});
+  txt('Paper 1 in Practice',{size:26,b:true,after:2});txt('Authorial choices across four past-paper texts',{size:12,c:COL.soft,after:6});
+  y=68;tbl(['Name','Date','Text chosen for Part B'],[[blank(v('name')),blank(v('date')),blank(S.pickText?S.pickText+': '+(CHOICES.find(c=>c[0]===S.pickText)||['',''])[1]:'')]],COL.w);
+  TEXTS.forEach(t=>{
+    d.addPage();y=M;const c=COL[t.id];
+    head('Text '+t.id.toUpperCase()+': '+t.title,c,'Part A  |  '+t.tag);
+    txt(t.src,{size:9,i:true,c:COL.soft,after:2});txt('Guiding question: '+t.gq,{size:10.5,b:true,c,after:3});
+    sub('Step 1  |  Context grid',c);tbl(['Element','My answer'],CTX.map((x,i)=>[x,blank(v(t.id+'.ctx.'+i))]),c,{0:{cellWidth:42,fontStyle:'bold'}});
+    sub('Step 2  |  Guiding question unpacked',c);txt(v(t.id+'.gqu')||'(not answered)',{after:3});
+    sub('Step 3  |  Authorial choices',c);
+    tbl(['Where to look','Choice','Evidence','How it answers the GQ','Effect on audience'],t.where.map((w,i)=>[w,...CH.map(x=>blank(v(t.id+'.ch.'+i+'.'+x[0])))]),c,{0:{cellWidth:28,fontStyle:'bold'}});
+    sub('Step 4  |  Thesis',c);txt(v(t.id+'.thesis')||'(not answered)',{after:3});
+    if(t.pick){sub('Step 5  |  Three strongest choices',c);txt(v(t.id+'.pick')||'(not answered)',{after:3})}
+  });
+  d.addPage();y=M;head('Skeleton response: Text A1',COL.sk,'Part A  |  Step 6');SKEL_IDX=0;
+  SKEL.forEach(p=>{sub(p[0],COL.sk);txt(skelText(p),{size:10.5,after:3})});
+  d.addPage();y=M;head('Full guided analysis',COL.w,'Part B');
+  const ch=CHOICES.find(c=>c[0]===S.pickText);txt('Text chosen: '+(ch?ch[0]+' '+ch[1]:'(none selected)'),{b:true,after:1});if(ch)txt('Guiding question: '+ch[2],{i:true,c:COL.soft,after:3});
+  sub('Plan',COL.w);tbl(['Section','My plan'],PLAN.map((p,i)=>[p,blank(v('plan.'+i))]),COL.w,{0:{cellWidth:50,fontStyle:'bold'}});
+  sub('My response',COL.w);const n=(v('essay').split(/\s+/).filter(Boolean)).length;txt(n+' words',{size:8.5,c:COL.soft,after:2});
+  (v('essay')||'(not written yet)').split(/\n+/).forEach(pp=>txt(pp,{size:10.5,after:3}));
+  sub('Self-check',COL.w);tbl(['Done','Area','Check'],CHECKS.map((c,i)=>[S['chk.'+i]?'Yes':'-',c[0],c[1]]),COL.w,{0:{cellWidth:14,halign:'center'},1:{cellWidth:26,fontStyle:'bold'}});
+  sub('My target for the timed task',COL.w);txt(v('target')||'(not answered)');
+  const pages=d.getNumberOfPages();for(let i=1;i<=pages;i++){d.setPage(i);d.setFont('helvetica','normal');d.setFontSize(8);d.setTextColor(...COL.soft);d.text('Paper 1 in Practice'+(v('name')?'  |  '+clean(v('name')):''),M,290);d.text(i+' / '+pages,W-M,290,{align:'right'})}
+  return d.output('arraybuffer');
+}
+async function doPdf(){
+  if(!window.jspdf){toast('The PDF tool is still loading. Try again in a moment.');return}
+  let buf;try{buf=buildPdf()}catch(e){toast('The PDF could not be built. Use "Copy all my answers" instead.');return}
+  const nm=(v('name')||'my').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'_')||'my';
+  const blob=new Blob([buf],{type:'application/pdf'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download=`Paper1_Workbook_${nm}.pdf`;document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),4000);toast('PDF downloaded. Check your Downloads folder.');
+}
+document.getElementById('pdfBtn2').addEventListener('click',doPdf);
+})();
+</script>
+
+</body>
+</html>
